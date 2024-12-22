@@ -1,0 +1,614 @@
+/* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+    background-color: #f3f4f6;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Navigation and Header */
+.nav-menu {
+    background: white;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    gap: 12px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #6b7280;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+    background: #f3f4f6;
+}
+
+.nav-link.active {
+    background: #2563eb;
+    color: white;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header h1 {
+    color: #111827;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+/* Tabs */
+.tabs {
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    padding: 8px 16px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #6b7280;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.tab-btn:hover {
+    color: #2563eb;
+}
+
+.tab-btn.active {
+    border-bottom-color: #2563eb;
+    color: #2563eb;
+}
+
+/* Customer Grid */
+.customer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 10px;
+}
+
+/* Customer Cards */
+.customer-card {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+    border-left: 4px solid #e5e7eb;
+    transition: transform 0.2s ease;
+}
+
+.customer-card:hover {
+    transform: translateY(-2px);
+}
+
+.customer-card.positive { border-left-color: #10b981; }
+.customer-card.neutral { border-left-color: #f59e0b; }
+.customer-card.negative { border-left-color: #ef4444; }
+
+.customer-details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.customer-details p {
+    margin: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    background: #f9fafb;
+    border-radius: 6px;
+}
+
+.customer-details .issues {
+    margin-top: 8px;
+    padding: 8px;
+    background: #f9fafb;
+    border-radius: 6px;
+}
+
+.customer-details .issues h4 {
+    color: #374151;
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+}
+
+.customer-details .issues ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.customer-details .issues li {
+    color: #6b7280;
+    font-size: 0.85rem;
+    padding: 2px 0;
+}
+
+/* Badges and Status */
+.sentiment-badge {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.sentiment-badge.positive {
+    background: #ecfdf5;
+    color: #059669;
+}
+
+.sentiment-badge.neutral {
+    background: #fffbeb;
+    color: #d97706;
+}
+
+.sentiment-badge.negative {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.source {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    margin-top: 12px;
+}
+
+.source.manual {
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.source.system {
+    background: #f3e8ff;
+    color: #7c3aed;
+}
+
+/* Delete Button */
+.delete-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    color: #ef4444;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.2s ease;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.delete-btn:hover {
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.customer-card:hover .delete-btn {
+    opacity: 1;
+}
+
+.customer-card[data-type="system"] .delete-btn {
+    color: #6b7280;
+}
+
+.customer-card[data-type="system"] .delete-btn:hover {
+    background: rgba(107, 114, 128, 0.1);
+}
+
+/* Improved Modal Styles */
+.modal, .confirm-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.modal-content, .confirm-content {
+    background: white;
+    margin: 5% auto;
+    padding: 30px;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+.modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Add styles for modal scrollbar */
+.modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.2s;
+    line-height: 1;
+    padding: 5px;
+}
+
+.close:hover {
+    color: #ef4444;
+}
+
+.modal h2, .confirm-content h3 {
+    margin-bottom: 20px;
+    color: #111827;
+    font-size: 1.5rem;
+    padding-right: 40px;
+}
+
+.confirm-content {
+    max-width: 400px;
+    text-align: center;
+}
+
+.confirm-content p {
+    margin: 10px 0;
+    color: #4b5563;
+}
+
+.confirm-content p:last-of-type {
+    color: #dc2626;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+.confirm-actions {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.confirm-actions button {
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.confirm-delete {
+    background: #ef4444;
+    color: white;
+}
+
+.confirm-delete:hover {
+    background: #dc2626;
+}
+
+.confirm-cancel {
+    background: #f3f4f6;
+    color: #4b5563;
+}
+
+.confirm-cancel:hover {
+    background: #e5e7eb;
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Form Styling Improvements */
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #1f2937;
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    background: white;
+    color: #1f2937;
+}
+
+.form-group input:hover,
+.form-group select:hover {
+    border-color: #d1d5db;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px;
+    background: #f9fafb;
+    border-radius: 6px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #2563eb;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+}
+
+.submit-btn:hover {
+    background: linear-gradient(135deg, #1d4ed8, #1e40af);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+}
+
+/* Success Message */
+.success-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #059669;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 1000;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .customer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-content {
+        margin: 10px auto;
+        padding: 20px;
+        width: 95%;
+    }
+
+    .form-group {
+        margin-bottom: 16px;
+    }
+
+    .form-group label {
+        font-size: 0.9rem;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 10px 14px;
+    }
+
+    .checkbox-group {
+        padding: 6px;
+    }
+}
+
+/* Empty State */
+.no-customers {
+    text-align: center;
+    padding: 48px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.no-customers p {
+    color: #6b7280;
+    margin-bottom: 16px;
+}
+
+.no-customers p:last-child {
+    color: #2563eb;
+    font-weight: 500;
+}
+
+/* Enhanced Add Customer Button */
+.btn-primary {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
+    background: linear-gradient(135deg, #1d4ed8, #1e40af);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+}
+
+/* Risk Indicator */
+.risk-indicator {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #f9fafb;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.risk-indicator span:first-child {
+    color: #374151;
+    font-weight: 500;
+}
+
+.status-badge.status-low {
+    background: #dcfce7;
+    color: #059669;
+}
+
+.status-badge.status-medium {
+    background: #dcfce7;
+    color: #c0da14;
+}
+
+.status-badge.status-high {
+    background: #dcfce7;
+    color: #c51010;
+}
+
+.input-hint {
+    font-size: 0.8rem;
+    color: #6b7280;
+    margin-top: 4px;
+}
+
+.risk-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: #f9fafb;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.risk-override {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 8px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.risk-override label {
+    color: #4b5563;
+    font-size: 0.9rem;
+}
+
+.risk-override select {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    background: white;
+    color: #374151;
+    font-size: 0.9rem;
+}

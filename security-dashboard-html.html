@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attrition Prevention Dashboard</title>
+    <!-- Update Chart.js version and remove jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <link rel="stylesheet" href="/Dashboard/dashboard.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <nav class="nav-menu">
+                <a href="/Dashboard/security-dashboard-html.html" class="nav-link active">Dashboard</a>
+                <a href="/customers/customer-list.html" class="nav-link">Customer Management</a>
+            </nav>
+            <h1>Real-Time Attrition Prevention Dashboard</h1>
+            <p>Home Security Solutions - Proactive Monitoring System</p>
+        </div>
+
+        <div class="grid">
+            <div class="metric-card">
+                <h3>Active Systems</h3>
+                <div class="value">5</div>
+                <div class="change positive">+1.2% vs last week</div>
+            </div>
+            <div class="metric-card">
+                <h3>App Usage</h3>
+                <div class="value">76%</div>
+                <div class="change negative">-2.3% vs last week</div>
+            </div>
+            <div class="metric-card">
+                <h3>At-Risk Customers</h3>
+                <div class="value">3</div>
+                <div class="change negative">+5 vs last week</div>
+            </div>
+            <div class="metric-card">
+                <h3>Avg Response Time</h3>
+                <div class="value">2.4h</div>
+                <div class="change positive">-0.3h vs last week</div>
+            </div>
+            <div class="metric-card">
+                <h3>Customer Sentiment</h3>
+                <div class="value" id="sentiment-score">--</div>
+                <div class="change" id="sentiment-trend">Calculating...</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Priority Alerts</h2>
+            <div id="alerts-container">
+                <div class="loading">Loading alerts...</div>
+            </div>
+        </div>
+
+        <div class="card sentiment-analysis">
+            <h2>Customer Sentiment Analysis</h2>
+            <div class="sentiment-container">
+                <div class="sentiment-indicator">
+                    <div id="sentimentEmoji" class="emoji">😐</div>
+                    <div id="sentimentLabel" class="label">Analyzing...</div>
+                </div>
+                <div class="sentiment-bars">
+                    <div class="sentiment-bar">
+                        <label>Positive</label>
+                        <div class="progress-bar">
+                            <div id="positiveBar" class="progress positive" style="width: 0%"></div>
+                        </div>
+                        <span id="positivePercent">0%</span>
+                    </div>
+                    <div class="sentiment-bar">
+                        <label>Neutral</label>
+                        <div class="progress-bar">
+                            <div id="neutralBar" class="progress neutral" style="width: 0%"></div>
+                        </div>
+                        <span id="neutralPercent">0%</span>
+                    </div>
+                    <div class="sentiment-bar">
+                        <label>Negative</label>
+                        <div class="progress-bar">
+                            <div id="negativeBar" class="progress negative" style="width: 0%"></div>
+                        </div>
+                        <span id="negativePercent">0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h2>Activity Monitoring</h2>
+                <div class="chart-container">
+                    <canvas id="activityChart"></canvas>
+                </div>
+            </div>
+            <div class="card">
+                <h2>Attrition Risk Factors</h2>
+                <div id="risk-factors">
+                    <!-- Risk factors will be inserted here by JavaScript -->
+                </div>
+            </div>
+            <div class="card">
+                <h2>AI Risk Assessment</h2>
+                <div class="chart-container">
+                    <canvas id="riskFactorsChart"></canvas>
+                    <div class="loading">Loading risk assessment...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Recommended Actions</h2>
+            <div>
+                <a href="/Outreach-campaign/outreach-campaign.html" class="action-item">
+                    <span>Start Campaign</span>
+                    <span class="arrow"></span>
+                </a>
+                <a href="/System-health-check/system-health-check.html" class="action-item">
+                    <span>Schedule Checks</span>
+                    <span class="arrow"></span>
+                </a>
+                <!-- <a href="/Customer-survey/customer-survey.html" class="action-item">
+                    <span>Send Surveys</span>
+                    <span class="arrow"></span>
+                </a> -->
+            </div>
+        </div>
+    </div>
+    <div id="error-message" class="error-message" style="display: none;"></div>
+    
+    <script src="/Dashboard/dashboard.js"></script>
+</body>
+</html>

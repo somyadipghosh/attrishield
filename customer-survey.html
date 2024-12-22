@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Satisfaction Survey - Home Security Solutions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #f3f4f6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #111827;
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #6b7280;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .rating-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .rating-button {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .rating-button:hover {
+            border-color: #2563eb;
+        }
+
+        .rating-button.selected {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: background-color 0.2s;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .success-message {
+            display: none;
+            background: #ecfdf5;
+            border: 1px solid #059669;
+            color: #059669;
+            padding: 16px;
+            border-radius: 6px;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Customer Satisfaction Survey</h1>
+            <p>Help us improve our home security services</p>
+        </div>
+
+        <form id="surveyForm" class="card">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label>How satisfied are you with our security system?</label>
+                <div class="rating-group">
+                    <button type="button" class="rating-button" data-rating="1">1</button>
+                    <button type="button" class="rating-button" data-rating="2">2</button>
+                    <button type="button" class="rating-button" data-rating="3">3</button>
+                    <button type="button" class="rating-button" data-rating="4">4</button>
+                    <button type="button" class="rating-button" data-rating="5">5</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>How likely are you to recommend our services?</label>
+                <div class="rating-group">
+                    <button type="button" class="rating-button" data-nps="0">Not Likely</button>
+                    <button type="button" class="rating-button" data-nps="5">Neutral</button>
+                    <button type="button" class="rating-button" data-nps="10">Very Likely</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="app_usage">How often do you use our mobile app?</label>
+                <div class="rating-group">
+                    <button type="button" class="rating-button" data-usage="never">Never</button>
+                    <button type="button" class="rating-button" data-usage="rarely">Rarely</button>
+                    <button type="button" class="rating-button" data-usage="sometimes">Sometimes</button>
+                    <button type="button" class="rating-button" data-usage="often">Often</button>
+                    <button type="button" class="rating-button" data-usage="daily">Daily</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="feedback">What could we do to improve our service?</label>
+                <textarea id="feedback" name="feedback"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit Survey</button>
+        </form>
+
+        <div id="successMessage" class="success-message">
+            Thank you for your feedback! Your response helps us improve our services.
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Handle rating button selections
+            const ratingGroups = document.querySelectorAll('.rating-group');
+            ratingGroups.forEach(group => {
+                group.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('rating-button')) {
+                        // Remove selected class from all buttons in this group
+                        group.querySelectorAll('.rating-button').forEach(btn => {
+                            btn.classList.remove('selected');
+                        });
+                        // Add selected class to clicked button
+                        e.target.classList.add('selected');
+                    }
+                });
+            });
+
+            // Handle form submission
+            const form = document.getElementById('surveyForm');
+            const successMessage = document.getElementById('successMessage');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                // Collect form data
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    satisfaction: document.querySelector('[data-rating].selected')?.dataset.rating,
+                    nps: document.querySelector('[data-nps].selected')?.dataset.nps,
+                    appUsage: document.querySelector('[data-usage].selected')?.dataset.usage,
+                    feedback: document.getElementById('feedback').value
+                };
+
+                // Here you would typically send the data to your server
+                console.log('Survey Response:', formData);
+
+                // Show success message
+                form.style.display = 'none';
+                successMessage.style.display = 'block';
+
+                // Reset form
+                form.reset();
+                document.querySelectorAll('.rating-button').forEach(btn => {
+                    btn.classList.remove('selected');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

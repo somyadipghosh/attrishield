@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Management</title>
+    <link rel="stylesheet" href="customer-list.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="nav-menu">
+            <a href="/Dashboard/security-dashboard-html.html" class="nav-link">Dashboard</a>
+            <a href="/customers/customer-list.html" class="nav-link active">Customer Management</a>
+        </nav>
+        <div class="header">
+            <h1>Customer Management</h1>
+            <button id="addCustomerBtn" class="btn-primary">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
+                </svg>
+                Add New Customer
+            </button>
+        </div>
+
+        <div id="customerList" class="customer-grid">
+            <!-- Customers will be listed here -->
+        </div>
+
+        <!-- Add Customer Modal -->
+        <div id="customerModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Add New Customer</h2>
+                <form id="customerForm">
+                    <div class="form-group">
+                        <label for="customerName">Customer Name:</label>
+                        <input type="text" id="customerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerEmail">Email:</label>
+                        <input type="email" id="customerEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerPhone">Phone Number:</label>
+                        <input type="tel" id="customerPhone" required pattern="[0-9+\-\s()]*">
+                    </div>
+                    <div class="form-group">
+                        <label for="appUsage">App Usage (%)</label>
+                        <input type="number" id="appUsage" min="0" max="100" required>
+                        <div class="input-hint">Average daily system usage percentage</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="responseTime">Average Response Time (hours)</label>
+                        <input type="number" id="responseTime" step="0.1" min="0" required>
+                        <div class="input-hint">Average time to respond to system alerts</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>System Issues:</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="reducedUsage" name="issues" onchange="updateRiskLevel()">
+                                Reduced App Usage
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="systemInactive" name="issues" onchange="updateRiskLevel()">
+                                System Inactive
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="supportCalls" name="issues" onchange="updateRiskLevel()">
+                                Multiple Support Calls
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Risk Assessment:</label>
+                        <div class="risk-controls">
+                            <div class="risk-indicator">
+                                <span>Calculated Risk Level:</span>
+                                <span id="calculatedRisk" class="status-badge status-low">Low</span>
+                            </div>
+                            <div class="risk-override">
+                                <label for="manualRisk">Override Risk Level:</label>
+                                <select id="manualRisk">
+                                    <option value="">Use Calculated Risk</option>
+                                    <option value="Low">Low</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="High">High</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerSentiment">Customer Sentiment:</label>
+                        <select id="customerSentiment" required>
+                            <option value="positive">Positive</option>
+                            <option value="neutral">Neutral</option>
+                            <option value="negative">Negative</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="submit-btn">Add Customer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="confirmModal" class="confirm-modal">
+        <div class="confirm-content">
+            <span class="close">&times;</span>
+            <h3>Delete Customer</h3>
+            <p>Are you sure you want to delete this customer?</p>
+            <p>This action cannot be undone.</p>
+            <div class="confirm-actions">
+                <button class="confirm-delete" id="confirmDelete">Delete</button>
+                <button class="confirm-cancel" id="confirmCancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <script src="customer-list.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</body>
+</html>
